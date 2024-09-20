@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: frontend-container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+    networks:
+      - app-network
+    env_file:
+      - .env
+    environment:
+      - HOST_NAME=${HOST_NAME}
+
+networks:
+  app-network:
+    driver: bridge
