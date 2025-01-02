@@ -7,7 +7,7 @@ import {
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, BarElement, PointElement, Title, Tooltip, Legend, TimeScale } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import { ChartOptions } from 'chart.js';
-import { NavBar } from './Navbar';
+import { NavBar } from './Header';
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, BarElement, PointElement, Title, Tooltip, Legend, TimeScale);
 

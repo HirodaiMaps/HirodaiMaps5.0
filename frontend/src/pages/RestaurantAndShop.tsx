@@ -1,10 +1,10 @@
 import { Box } from '@mui/system';
-import { NavBar } from './Navbar';
-import SearchBar from './SearchBar';
+import { NavBar } from '../components/Header';
+import SearchBar from '../components/SearchBar';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { Typography } from '@mui/material';
-import BottomNavBarDiningHall from './BottomNavDiningHours';
-import { LanguageContext } from './LanguageProvider';
+import { Typography, Divider } from '@mui/material';
+import BottomNavBar from '../components/BottomNavTop';
+import { LanguageContext } from '../components/LanguageProvider';
 
 type DiningHallInfo = {
     name: string;
@@ -109,15 +109,13 @@ export const DiningHallHours = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
             <NavBar checkpointId={""} />
-            <Box sx={{ marginTop: '64px', marginBottom: '64px', padding: '0 20px' }}>
-                <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
-                    {language === 'ja' ? '食堂・売店の営業時間' : 'Dining Hall Hours'}
-                </Typography>
+            <Box sx={{ marginTop: '70px', marginBottom: '64px', padding: '0 20px' }}>
                 <SearchBar onSearch={handleSearch} />
+                <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
                 {filteredDiningHalls.length > 0 ? (
                     filteredDiningHalls.map((hall, i) => (
-                        <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}>
-                            <Typography variant="h6">{hall.name}</Typography>
+                        <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '5px 0' }}>
+                            <Typography>{hall.name}</Typography>
                             <Typography variant="body2">{language === 'ja' ? '営業時間:' : 'Open hours:'}{hall.time}</Typography>
                         </Box>
                     ))
@@ -127,7 +125,7 @@ export const DiningHallHours = () => {
                     </Typography>
                 )}
             </Box>
-            <BottomNavBarDiningHall />
+            <BottomNavBar checkpointId={"飲食店・売店"} />
         </Box>
     );
 };

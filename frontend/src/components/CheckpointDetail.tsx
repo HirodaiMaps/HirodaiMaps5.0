@@ -5,10 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { NavBar } from './Navbar';
+import { NavBar } from './Header';
 import Box from '@mui/material/Box';
 import Map from './Map';
-import BottomNavCheckpointDetail from './BottomNavCheckpointDetail';
 import checkpoints from './CheckpointData';
 
 const CheckpointDetail = () => {
@@ -41,7 +40,6 @@ const CheckpointDetail = () => {
             <Box sx={{ width: '100%', maxWidth: '90%', aspectRatio: '1', margin: 'auto', mb: "100px" }}>
                 <Map lat={`${checkpoint?.lat}`} lon={`${checkpoint?.lon}`} title={`${checkpoint?.title}`} />
             </Box>
-            <BottomNavCheckpointDetail checkpointId={checkpointId} />
         </>
     );
 }

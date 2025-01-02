@@ -1,9 +1,10 @@
 import { Box } from '@mui/system';
-import { NavBar } from './Navbar';
+import { NavBar } from '../components/Header';
 import { useState, useEffect, useContext } from 'react';
-import { Typography, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
-import BottomNavBarDiningHall from './BottomNavDiningHours';
-import { LanguageContext } from './LanguageProvider';
+import { Typography, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent,Divider } from '@mui/material';
+import BottomNavBar from '../components/BottomNavTop';
+import { LanguageContext } from '../components/LanguageProvider';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 type BusTimetable = {
     bus_stop: string;
@@ -105,15 +106,10 @@ export const BusTimetableComponent = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
             <NavBar checkpointId={""} />
-            <Box sx={{ marginTop: '64px', marginBottom: '64px', padding: '0 20px' }}>
-                <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
-                    {language === 'ja' ? '西条駅行きバス時刻表' : 'Bus Timetable to Saijo Station'}
-                </Typography>
-                <FormControl fullWidth sx={{ marginBottom: '20px' }}>
-                    <InputLabel id="bus-stop-select-label">{
-                        language === 'ja' ? 'バス停' : 'Bus Stop'
-                    }</InputLabel>
+            <Box sx={{ marginTop: '70px', marginBottom: '64px', padding: '0 20px' }}>
+                <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                     <Select
+                        size='small'
                         labelId="bus-stop-select-label"
                         value={selectedBusStop}
                         onChange={handleBusStopChange}
@@ -125,10 +121,11 @@ export const BusTimetableComponent = () => {
                         ))}
                     </Select>
                 </FormControl>
+                <Divider />
                 {busTimetable.length > 0 ? (
                     busTimetable.map((bus, i) => (
-                        <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '10px 0' }}>
-                            <Typography variant="h6">{bus.dpt_time} - {bus.tag}</Typography>
+                        <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '5px 0' }}>
+                            <Typography>{bus.dpt_time} - {bus.tag}</Typography>
                             <Typography variant="body2">{
                                 language === 'ja' ? '所要時間' : 'Riding Time'
                             } {bus.riding_time}</Typography>
@@ -142,7 +139,7 @@ export const BusTimetableComponent = () => {
                     </Typography>
                 )}
             </Box>
-            <BottomNavBarDiningHall />
+            <BottomNavBar checkpointId={"バス時刻表"} />
         </Box>
     );
 };

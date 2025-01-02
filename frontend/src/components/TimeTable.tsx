@@ -7,12 +7,11 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/system';
-import { NavBar } from './Navbar';
+import { NavBar } from './Header';
 import { useState } from 'react';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { SelectChangeEvent } from '@mui/material/Select';
-import BottomNavBarTT from './BottomNavTT';
 import { Typography } from '@mui/material';
 
 const TimeTable = () => {
@@ -78,7 +77,6 @@ const TimeTable = () => {
                     </Timeline>
                 </Box>
             </Box >
-            <BottomNavBarTT checkpointId={checkpointId} />
         </>
     )
 }

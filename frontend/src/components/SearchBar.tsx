@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
     };
 
     return (
-        <div style={{ margin: '10px' }}>
+        <div>
             <Autocomplete
                 freeSolo
                 options={filteredKeywords}
@@ -40,7 +40,8 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
                     <TextField
                         {...params}
                         fullWidth
-                        placeholder={language === 'en' ? 'Search by faculties, building names and rooms etc.' : '学部、建物、講義室で検索(e.g., 総合科学部）'}
+                        size="small"
+                        placeholder={language === 'en' ? 'Search by faculties, building names and rooms' : '学部、建物、講義室で検索'}
                         variant="outlined"
                         InputProps={{
                             ...params.InputProps,
@@ -48,7 +49,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
                                 <InputAdornment position="start">
                                     <SearchIcon />
                                 </InputAdornment>
-                            ),
+                            )
                         }}
                     />
                 )}

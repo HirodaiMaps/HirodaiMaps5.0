@@ -10,7 +10,6 @@ import { LanguageContext } from './LanguageProvider';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 
 const CustomBottomNavigationAction = styled(BottomNavigationAction)((theme) => ({
-    borderRight: '1px solid rgba(0, 0, 0, 0.12)',
     '&.Mui-selected': {
         color: '#005e3c',
         backgroundColor: '#f0f0f0',
@@ -28,36 +27,29 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
             width: '100%',
             position: 'fixed',
             bottom: 0,
-            borderTop: '1px solid rgba(0, 0, 0, 0.12)',
-            display: 'flex',
-            justifyContent: 'space-around',
+            borderTop: '1px solid rgba(0, 0, 0, 0.12)'
         }}>
-            <Link to={`/bustimetable`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
+            <Link to={`/`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
                 <CustomBottomNavigationAction
-                    label={language === 'en' ? 'Timetable' : '時刻表'}
-                    icon={<DepartureBoardIcon />}
+                    sx={{ color: checkpointId === '建物リスト' ? '#005e3c' : '', fontWeight: checkpointId === '建物リスト' ? 'bold' : '' }}
+                    label={language === 'en' ? 'Building List' : '建物リスト'}
+                    icon={checkpointId === '建物リスト' ? <ApartmentIcon sx={{ color: '#005e3c' }} /> : <ApartmentIcon />}
                     showLabel={true}
                 />
             </Link>
-            {/* <Link to={`/building/${checkpointId}/${checkpointId}`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}> */}
             <Link to="/dininghours" style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
                 <CustomBottomNavigationAction
-                    label={language === 'en' ? 'Dining Hours' : '食堂・売店'}
+                    sx={{ color: checkpointId === '飲食店・売店' ? '#005e3c' : '', fontWeight: checkpointId === '飲食店・売店' ? 'bold' : '' }}
+                    label={language === 'en' ? 'Dining Hours' : '飲食店・売店'}
                     icon={<RestaurantIcon />}
                     showLabel={true}
                 />
             </Link>
-            {/* <Link to={`/checkpoint/${checkpointId}`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
+            <Link to={`/bustimetable`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
                 <CustomBottomNavigationAction
-                    label={language === 'en' ? 'Map' : '地図'}
-                    icon={<MyLocationIcon />}
-                    showLabel={true}
-                />
-            </Link> */}
-            <Link to={`/buildinglist`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
-                <CustomBottomNavigationAction
-                    label={language === 'en' ? 'Building List' : '建物リスト'}
-                    icon={<ApartmentIcon />}
+                    sx={{ color: checkpointId === 'バス時刻表' ? '#005e3c' : '', fontWeight: checkpointId === 'バス時刻表' ? 'bold' : '' }}
+                    label={language === 'en' ? 'Timetable' : 'バス時刻表'}
+                    icon={<DepartureBoardIcon />}
                     showLabel={true}
                 />
             </Link>
