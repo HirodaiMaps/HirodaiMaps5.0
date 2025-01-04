@@ -40,8 +40,8 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
                     <TextField
                         {...params}
                         fullWidth
-                        size="small"
-                        placeholder={language === 'en' ? 'Search by faculties, building names and rooms' : '学部、建物、講義室で検索'}
+                        size="medium"
+                        placeholder={language === 'en' ? 'Search by facility name' : '施設名で絞り込む'}
                         variant="outlined"
                         InputProps={{
                             ...params.InputProps,

@@ -10,10 +10,10 @@ interface BuildingCardProps {
 
 export const BuildingCard: React.FC<BuildingCardProps> = ({ imageUrl, title }) => {
     return (
-        <div>
+        <div style={{ marginTop: 8, marginBottom: 8}}>
             <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between" width="100%">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <img width="65" height="42" style={{ objectFit: "cover" }} src={imageUrl} alt="building" />
+                    <img width="60" height="40" style={{ objectFit: "cover" }} src={imageUrl} alt="building" />
                     <Typography sx={{ fontColor: '#000' }}>{title}</Typography>
                 </Stack>
             </Stack>
