@@ -1,36 +1,83 @@
-import React, { useContext } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import { Link } from 'react-router-dom';
-import { LanguageContext } from './LanguageProvider';
-import LanguageIcon from '@mui/icons-material/Language';
-import { TemporaryDrawer } from './HamburgerIcon';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom"; // React Router の useNavigate をインポート
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import QrCodeIcon from "@mui/icons-material/QrCode";
+import { Link } from "react-router-dom";
+import { LanguageContext } from "./LanguageProvider";
+import { TemporaryDrawer } from "./HamburgerIcon";
+import Back from "../images/back.png";
 interface BottomNavBarTopProps {
-    checkpointId?: string;
+  checkpointId?: string;
 }
 
 export const NavBar: React.FC<BottomNavBarTopProps> = ({ checkpointId }) => {
-    const { language, toggleLanguage } = useContext(LanguageContext);
+  const { language, toggleLanguage } = useContext(LanguageContext);
+  const navigate = useNavigate(); // useNavigate フックを取得
 
-    return (
-        <Box>
-            <AppBar sx={{ backgroundColor: '#005e3c', position: "fixed", boxShadow: '0px 0px 0px 0px' }}>
-                <Toolbar>
-                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                        <Link to={`/${checkpointId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <Typography variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center', fontFamily: "Helvetica", fontSize: '1.5rem' }}>
-                                HirodaiMaps
-                                <QrCodeIcon sx={{ marginLeft: 0.5 }} />
-                            </Typography>
-                        </Link>
-                    </Box>
-                    <TemporaryDrawer />
-                </Toolbar>
-            </AppBar>
-        </Box>
-    );
-}
+
+  return (
+    <Box>
+      <AppBar
+        sx={{
+          backgroundColor: "#005e3c",
+          position: "fixed",
+          boxShadow: "0px 0px 0px 0px",
+        }}
+      >
+        <Toolbar>
+          <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+            {checkpointId === "detail_page" ? (
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{ height: 33, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", borderRadius: 10 }}
+                startIcon={
+                  <img
+                    src={Back}
+                    alt="Hamburger Icon"
+                    style={{ width: "7px" }}
+                  />
+                }
+                onClick={() => navigate("/")} // 前のページに戻る
+              >
+                <Typography
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#fff",
+                    marginTop: "2.6px",
+                  }}
+                >
+                  back
+                </Typography>
+              </Button>
+            ) : (
+              <Link
+                to={`/`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontFamily: "Helvetica",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  HirodaiMaps
+                  <QrCodeIcon sx={{ marginLeft: 0.5 }} />
+                </Typography>
+              </Link>
+            )}
+          </Box>
+          <TemporaryDrawer />
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+};

@@ -2,7 +2,7 @@ import { Box } from '@mui/system';
 import { NavBar } from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { Typography, Divider } from '@mui/material';
+import { Typography, Divider,Grid } from '@mui/material';
 import BottomNavBar from '../components/BottomNavTop';
 import { LanguageContext } from '../components/LanguageProvider';
 
@@ -109,21 +109,35 @@ export const DiningHallHours = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
             <NavBar checkpointId={""} />
-            <Box sx={{ marginTop: '70px', marginBottom: '64px', padding: '0 20px' }}>
+            <Box sx={{ marginTop: 8.5, marginBottom: 8, marginLeft: 2, marginRight: 2 }}>
                 <SearchBar onSearch={handleSearch} />
-                <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
-                {filteredDiningHalls.length > 0 ? (
-                    filteredDiningHalls.map((hall, i) => (
-                        <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '5px 0' }}>
-                            <Typography>{hall.name}</Typography>
-                            <Typography variant="body2">{language === 'ja' ? '営業時間:' : 'Open hours:'}{hall.time}</Typography>
-                        </Box>
-                    ))
-                ) : (
-                    <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
-                        {language === 'ja' ? '現在、利用可能な食堂情報がありません。' : 'No dining hall or store found.'}
-                    </Typography>
-                )}
+                <div style={{ height: 14 }} />
+                <Box
+                    sx={{
+                        overflowY: 'auto',
+                        maxHeight: 'calc(100vh - 200px)',
+                        marginTop: -0.6,
+                        marginLeft: 0.3,
+                        marginRight: 0.3,
+                    }}
+                >
+
+                    <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
+                    <Grid>
+                        {filteredDiningHalls.length > 0 ? (
+                            filteredDiningHalls.map((hall, i) => (
+                                <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '5px 0' }}>
+                                    <Typography>{hall.name}</Typography>
+                                    <Typography variant="body2">{language === 'ja' ? '営業時間:' : 'Open hours:'}{hall.time}</Typography>
+                                </Box>
+                            ))
+                        ) : (
+                            <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
+                                {language === 'ja' ? '現在、利用可能な食堂情報がありません。' : 'No dining hall or store found.'}
+                            </Typography>
+                        )}
+                    </Grid>
+                </Box>
             </Box>
             <BottomNavBar checkpointId={"飲食店・売店"} />
         </Box>

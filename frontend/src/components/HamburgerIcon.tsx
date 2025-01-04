@@ -62,7 +62,7 @@ export const TemporaryDrawer = () => {
       <Button
         variant="outlined"
         color="inherit"
-        sx={{ height: 33, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}
+        sx={{ height: 33, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
         startIcon={<img src={Hamburger} alt="Hamburger Icon" style={{ width: '15px', height: '11px' }} />}
         onClick={toggleDrawer("right", !state.right)}
       >

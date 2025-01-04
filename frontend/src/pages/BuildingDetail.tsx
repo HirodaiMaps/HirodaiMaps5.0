@@ -67,34 +67,33 @@ const BuildingDetail = () => {
 
     return (
         <>
-            <div style={{ maxWidth: 400, marginLeft: 'auto', marginRight: 'auto' }}>
-                <Box sx={{ marginLeft: 5, marginRight: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
-                    <NavBar checkpointId={""} />
-                    <Card sx={{ margin: 'auto' }}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="200"
-                                image={`https://hirodaimaps.ikeda042api.net/api/files/${building?.image_id}`}
-                                alt={building?.name || 'Building Image'}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {language === 'ja' ? building?.name : building?.name_en}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {language === 'ja' ? building?.description : building?.description_en}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Box>
-                <div style={{ display: 'flex', marginTop:-50 }}>
-                    <FormControl sx={{ marginLeft: 5, minWidth: 120 }} size="small">
-                        <InputLabel id="demo-select-small-label">出発地</InputLabel>
+            <NavBar checkpointId={"detail_page"} />
+            <Box sx={{ marginTop: 8.5, marginBottom: 8, marginLeft: 2, marginRight: 2 }}>
+
+                <Card sx={{ margin: 'auto' }}>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="300"
+                            image={`https://hirodaimaps.ikeda042api.net/api/files/${building?.image_id}`}
+                            alt={building?.name || 'Building Image'}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {language === 'ja' ? building?.name : building?.name_en}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {language === 'ja' ? building?.description : building?.description_en}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <div style={{ display: 'flex' }}>
+                    <FormControl sx={{ minWidth: 160 }} size="medium">
+                        <InputLabel id="departure-point-label">出発地点を選択</InputLabel>
                         <Select
-                            labelId="demo-select-small-label"
-                            id="demo-select-small"
+                            labelId="departure-point-label"
+                            id="departure-point"
                             value={currentLocation}
                             label="出発地"
                             onChange={handleChange}
@@ -130,15 +129,13 @@ const BuildingDetail = () => {
                         </Select>
                     </FormControl>
                     <ArrowRightIcon sx={{ marginLeft: 2, marginRight: 2 }} fontSize='large' />
-                    <Typography sx={{ marginTop: 1, marginBottom:3 }}>{building?.name}</Typography>
+                    <Typography sx={{ marginTop: 1, marginBottom: 3 }}>{building?.name}</Typography>
                 </div>
-
-
                 <Box sx={{ marginLeft: 5, marginRight: 5, height: 400, marginBottom: 20 }}>
                     {currentLocation === '' ? <Map lat={building?.latitude || ''} lon={building?.longitude || ''} title={language === 'ja' ? (building?.name ?? '') : (building?.name_en ?? '')} />
                         : <Path defaultStartBuildingId={currentLocation} defaultEndBuildingId={buildingId} />}
                 </Box>
-            </div>
+            </Box>
         </>
     );
 };
