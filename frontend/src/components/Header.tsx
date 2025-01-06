@@ -60,17 +60,15 @@ export const NavBar: React.FC<BottomNavBarTopProps> = ({ checkpointId }) => {
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <Typography
-                  variant="h6"
                   component="div"
                   sx={{
                     display: "flex",
                     alignItems: "center",
                     fontFamily: "Helvetica",
-                    fontSize: "1.5rem",
+                    fontSize: 20
                   }}
                 >
                   HirodaiMaps
-                  <QrCodeIcon sx={{ marginLeft: 0.5 }} />
                 </Typography>
               </Link>
             )}

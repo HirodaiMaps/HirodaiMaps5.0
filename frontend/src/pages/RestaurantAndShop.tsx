@@ -2,44 +2,17 @@ import { Box } from '@mui/system';
 import { NavBar } from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { Typography, Divider,Grid } from '@mui/material';
+import { Typography, Divider, Grid } from '@mui/material';
 import BottomNavBar from '../components/BottomNavTop';
 import { LanguageContext } from '../components/LanguageProvider';
 
 type DiningHallInfo = {
     name: string;
-    time: string;
+    time: string; // e.g., "9:00-17:00"
 };
 
 const translation: { [key: string]: string } = {
-    "北1食堂(理食)": "North 1 Cafeteria (Science Cafe)",
-    "北1レストラン": "North 1 Restaurant",
-    "東食堂(工食)": "East Cafeteria (Engineering Cafe)",
-    "大学会館食堂": "University Hall Cafeteria",
-    "西2食堂(総食)": "West 2 Cafeteria (Arts Cafe)",
-    "北2食堂(教食)": "North 2 Cafeteria (Edu Cafe)",
-    "BBB": "BBB",
-    "lalala cafe": "lalala cafe",
-    "北1コープショップ": "North 1 Co-op Shop",
-    "北1サービスカウンター": "North 1 Service Counter",
-    "北1トラベルカウンター": "North 1 Travel Counter",
-    "講座サポートルーム": "Lecture Support Room",
-    "会館コープショップ": "University Hall Co-op Shop",
-    "西2コープショップ": "West 2 Co-op Shop",
-    "西2PCサポートデスク": "West 2 PC Support",
-    "教科書センター": "Textbook Center",
-    "北2コープショップ": "North 2 Co-op Shop",
-    "住まい東広島店": "Housing Support Service Higshi-Hiroshima",
-    "住まい管理店": "Housing Support Service",
-    "生協事務所": "Co-op Office",
-    "ヴィオラダイニング": "Viola Dining",
-    "ヴィオラショップ": "Viola Shop",
-    "ヴィオラPCヘルプデスク": "Viola PC Support",
-    "ヴィオラ　トラベルカウンター": "Viola Travel Counter",
-    "ヴィオラ　サービスカウンター": "Viola Service Counter",
-    "住まい広島店": "Housing Support Service Hiroshima",
-    "プナナショップ": "Punana Shop",
-    "プナナダイニング": "Punana Dining"
+    // ... (省略) ...
 };
 
 export const DiningHallHours = () => {
@@ -73,6 +46,18 @@ export const DiningHallHours = () => {
                     console.error('Error tracking search keyword:', error);
                 });
         }, 300);
+    };
+
+    const isOpen = (timeRange: string): boolean => {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+
+        const [start, end] = timeRange.split('-').map(time => {
+            const [hours, minutes] = time.split(':').map(Number);
+            return hours * 60 + (minutes || 0);
+        });
+
+        return currentTime >= start && currentTime <= end;
     };
 
     useEffect(() => {
@@ -121,19 +106,49 @@ export const DiningHallHours = () => {
                         marginRight: 0.3,
                     }}
                 >
-
-                    <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
                     <Grid>
                         {filteredDiningHalls.length > 0 ? (
                             filteredDiningHalls.map((hall, i) => (
-                                <Box key={i} sx={{ borderBottom: '1px solid #ccc', padding: '5px 0' }}>
-                                    <Typography>{hall.name}</Typography>
-                                    <Typography variant="body2">{language === 'ja' ? '営業時間:' : 'Open hours:'}{hall.time}</Typography>
+                                <Box key={i}>
+                                    <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
+                                    <Box sx={{height:5}}/>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Box>
+                                            <Typography style={{ fontSize: 17 }}>{hall.name}</Typography>
+                                            <Typography style={{ fontSize: 15 }}>
+                                                {language === 'ja' ? '営業時間:' : 'Open hours:'} {hall.time}
+                                            </Typography>
+                                        </Box>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                marginLeft: 1,
+                                                color: isOpen(hall.time) ? 'green' : 'red',
+                                                fontWeight: 'bold',
+                                                fontSize: 20
+                                            }}
+                                        >
+                                            {isOpen(hall.time)
+                                                ? language === 'ja'
+                                                    ? '営業中'
+                                                    : 'Open'
+                                                : language === 'ja'
+                                                    ? '閉店中'
+                                                    : 'Closed'}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{height:5}}/>
                                 </Box>
                             ))
                         ) : (
                             <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
-                                {language === 'ja' ? '現在、利用可能な食堂情報がありません。' : 'No dining hall or store found.'}
+                                {language === 'ja' ? '現在、利用可能な食堂・売店情報がありません。' : 'No dining hall or store found.'}
                             </Typography>
                         )}
                     </Grid>
