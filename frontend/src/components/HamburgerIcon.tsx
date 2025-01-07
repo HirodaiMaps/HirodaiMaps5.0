@@ -14,7 +14,7 @@ import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import { LanguageContext } from './LanguageProvider';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import Hamburger from "../images/hamburger.png";
+import Hamburger from "../images/hamburger.svg";
 
 type Anchor = 'right';
 
@@ -63,10 +63,10 @@ export const TemporaryDrawer = () => {
         variant="outlined"
         color="inherit"
         sx={{ height: 33, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: 10 }}
-        startIcon={<img src={Hamburger} alt="Hamburger Icon" style={{ width: '15px', height: '11px' }} />}
+        startIcon={<img src={Hamburger} alt="Hamburger Icon" style={{ width: 23 }} />}
         onClick={toggleDrawer("right", !state.right)}
       >
-        <Typography style={{ fontSize: '0.9rem', color: '#fff', marginTop: '2.6px' }}>menu</Typography>
+        <Typography style={{ fontSize: '0.9rem', color: '#fff' }}>menu</Typography>
       </Button>
 
       <Drawer
@@ -81,7 +81,7 @@ export const TemporaryDrawer = () => {
         >
           <List sx={{ paddingTop: '30px' }}>
             <Item text={'言語 / Language'} icon={<LanguageOutlinedIcon />} onClick={toggleLanguage} />
-            <Item text={language === 'en' ? 'Working Toward an Inclusive Society Where Every Diverse Member Can Prosper' : '広島大学ダイバーシティ＆インクルージョン推進機構'} to={language === 'en' ? "https://d-and-i.hiroshima-u.ac.jp/en/" : "https://d-and-i.hiroshima-u.ac.jp/"} icon={<WysiwygOutlinedIcon />} external />
+            <Item text={language === 'en' ? 'The Institute for Diversity and Inclusion,Hiroshima University' : '広島大学ダイバーシティ＆インクルージョン推進機構'} to={language === 'en' ? "https://d-and-i.hiroshima-u.ac.jp/en/" : "https://d-and-i.hiroshima-u.ac.jp/"} icon={<WysiwygOutlinedIcon />} external />
           </List>
         </Box>
       </Drawer>

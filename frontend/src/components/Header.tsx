@@ -5,11 +5,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import QrCodeIcon from "@mui/icons-material/QrCode";
 import { Link } from "react-router-dom";
 import { LanguageContext } from "./LanguageProvider";
 import { TemporaryDrawer } from "./HamburgerIcon";
-import Back from "../images/back.png";
+import Back from "../images/back.svg";
 interface BottomNavBarTopProps {
   checkpointId?: string;
 }
@@ -39,7 +38,7 @@ export const NavBar: React.FC<BottomNavBarTopProps> = ({ checkpointId }) => {
                   <img
                     src={Back}
                     alt="Hamburger Icon"
-                    style={{ width: "7px" }}
+                    style={{ width: 17 }}
                   />
                 }
                 onClick={() => navigate("/")} // 前のページに戻る
@@ -48,7 +47,6 @@ export const NavBar: React.FC<BottomNavBarTopProps> = ({ checkpointId }) => {
                   style={{
                     fontSize: "0.9rem",
                     color: "#fff",
-                    marginTop: "2.6px",
                   }}
                 >
                   back
@@ -64,8 +62,8 @@ export const NavBar: React.FC<BottomNavBarTopProps> = ({ checkpointId }) => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    fontFamily: "Helvetica",
-                    fontSize: 20
+                    fontSize: 20,
+                    fontWeight: 'bold'
                   }}
                 >
                   HirodaiMaps

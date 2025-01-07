@@ -12,7 +12,34 @@ type DiningHallInfo = {
 };
 
 const translation: { [key: string]: string } = {
-    // ... (省略) ...
+    "北1食堂(理食)": "North 1 Cafeteria (Science Cafe)",
+    "北1レストラン": "North 1 Restaurant",
+    "東食堂(工食)": "East Cafeteria (Engineering Cafe)",
+    "大学会館食堂": "University Hall Cafeteria",
+    "西2食堂(総食)": "West 2 Cafeteria (Arts Cafe)",
+    "北2食堂(教食)": "North 2 Cafeteria (Edu Cafe)",
+    "BBB": "BBB",
+    "lalala cafe": "lalala cafe",
+    "北1コープショップ": "North 1 Co-op Shop",
+    "北1サービスカウンター": "North 1 Service Counter",
+    "北1トラベルカウンター": "North 1 Travel Counter",
+    "講座サポートルーム": "Lecture Support Room",
+    "会館コープショップ": "University Hall Co-op Shop",
+    "西2コープショップ": "West 2 Co-op Shop",
+    "西2PCサポートデスク": "West 2 PC Support",
+    "教科書センター": "Textbook Center",
+    "北2コープショップ": "North 2 Co-op Shop",
+    "住まい東広島店": "Housing Support Service Higshi-Hiroshima",
+    "住まい管理店": "Housing Support Service",
+    "生協事務所": "Co-op Office",
+    "ヴィオラダイニング": "Viola Dining",
+    "ヴィオラショップ": "Viola Shop",
+    "ヴィオラPCヘルプデスク": "Viola PC Support",
+    "ヴィオラ　トラベルカウンター": "Viola Travel Counter",
+    "ヴィオラ　サービスカウンター": "Viola Service Counter",
+    "住まい広島店": "Housing Support Service Hiroshima",
+    "プナナショップ": "Punana Shop",
+    "プナナダイニング": "Punana Dining"
 };
 
 export const DiningHallHours = () => {
@@ -91,6 +118,24 @@ export const DiningHallHours = () => {
         setFilteredDiningHalls(filtered);
     }, [searchQuery, diningHalls, language]);
 
+    useEffect(() => {
+        fetch('https://hirodaimaps.ikeda042api.net/api/dininghalls/info')
+            .then(response => response.json())
+            .then((data: DiningHallInfo[]) => {
+                // 営業時間のフォーマットを修正
+                const formattedData = data.map(hall => ({
+                    ...hall,
+                    time: hall.time.replace('〜', ' - ')
+                }));
+                setDiningHalls(formattedData);
+                setFilteredDiningHalls(formattedData);
+            })
+            .catch(error => {
+                console.error('Error fetching dining hall information:', error);
+            });
+    }, []);
+    
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
             <NavBar checkpointId={""} />
@@ -111,7 +156,7 @@ export const DiningHallHours = () => {
                             filteredDiningHalls.map((hall, i) => (
                                 <Box key={i}>
                                     <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
-                                    <Box sx={{height:5}}/>
+                                    <Box sx={{ height: 5 }} />
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -120,18 +165,25 @@ export const DiningHallHours = () => {
                                         }}
                                     >
                                         <Box>
-                                            <Typography style={{ fontSize: 17 }}>{hall.name}</Typography>
+                                            {/* 食堂名 */}
+                                            <Typography style={{ fontSize: 17, marginBottom:2 }}>{hall.name}</Typography>
+
+                                            {/* 営業時間 */}
                                             <Typography style={{ fontSize: 15 }}>
-                                                {language === 'ja' ? '営業時間:' : 'Open hours:'} {hall.time}
+                                                {language === 'ja'
+                                                    ? `営業時間: ${hall.time}`
+                                                    : `Open hours: ${hall.time}`}
                                             </Typography>
                                         </Box>
+
+                                        {/* 営業中/閉店中 */}
                                         <Typography
                                             variant="body2"
                                             sx={{
                                                 marginLeft: 1,
                                                 color: isOpen(hall.time) ? 'green' : 'red',
                                                 fontWeight: 'bold',
-                                                fontSize: 20
+                                                fontSize: 20,
                                             }}
                                         >
                                             {isOpen(hall.time)
@@ -143,7 +195,7 @@ export const DiningHallHours = () => {
                                                     : 'Closed'}
                                         </Typography>
                                     </Box>
-                                    <Box sx={{height:5}}/>
+                                    <Box sx={{ height: 5 }} />
                                 </Box>
                             ))
                         ) : (
@@ -152,6 +204,7 @@ export const DiningHallHours = () => {
                             </Typography>
                         )}
                     </Grid>
+
                 </Box>
             </Box>
             <BottomNavBar checkpointId={"飲食店・売店"} />
