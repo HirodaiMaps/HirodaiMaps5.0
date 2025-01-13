@@ -61,99 +61,170 @@ const BuildingDetail = () => {
     const buildingDescription = language === 'ja' ? building?.description : building?.description_en;
 
     // List of departure locations for both languages
-    const departureOptions = language === 'ja' 
+    const departureOptions = language === 'ja'
         ? [
-            'ひろぎんATM', 'ゆうちょATM', '大学会館', '東福利会館', '北第1福利会館', 
-            '北第2福利会館', '北第3福利会館', '学士会館', '西2福利会館', '三河屋珈琲', 
-            '広大中央口', '広大北口', '広大二神口', '二神山', '広大西口', 
-            '大学会館前', 'かがら口', '広大東口', '山中池', '大学院国際協力研究科（IDEC）礼拝所', 
-            '大学院社会科学研究科・経済学部 礼拝所', '大学院教育研究科・教育学部 礼拝所', 
+            'ひろぎんATM', 'ゆうちょATM', '大学会館', '東福利会館', '北第1福利会館',
+            '北第2福利会館', '北第3福利会館', '学士会館', '西2福利会館', '三河屋珈琲',
+            '広大中央口', '広大北口', '広大二神口', '二神山', '広大西口',
+            '大学会館前', 'かがら口', '広大東口', '山中池', '大学院国際協力研究科（IDEC）礼拝所',
+            '大学院社会科学研究科・経済学部 礼拝所', '大学院教育研究科・教育学部 礼拝所',
             '大学院生物圏科学研究科 礼拝所', 'ミライクリエ', '学生プラザ'
         ]
         : [
             'Hirogin ATM', 'Japan Post Bank ATM', 'University Hall', 'East Welfare Hall', 'North Welfare Hall #1',
             'North Welfare Hall #2', 'North Welfare Hall #3', 'Faculty Club', 'West Welfare Center #2', 'Mikawa Coffee',
-            'Hiroshima University Central Entrance', 'Hiroshima University North Entrance', 'Hiroshima University Nikami Entrance', 
-            'Nikami Mountain', 'Hiroshima University West Entrance', 'University Hall Front', 'Kagara Entrance', 
+            'Hiroshima University Central Entrance', 'Hiroshima University North Entrance', 'Hiroshima University Nikami Entrance',
+            'Nikami Mountain', 'Hiroshima University West Entrance', 'University Hall Front', 'Kagara Entrance',
             'Hiroshima University East Entrance', 'Yamanaka Pond', 'Graduate School of International Cooperation Studies Chapel',
-            'Graduate School of Social Sciences & Economics Chapel', 'Graduate School of Education & Faculty of Education Chapel', 
+            'Graduate School of Social Sciences & Economics Chapel', 'Graduate School of Education & Faculty of Education Chapel',
             'Graduate School of Biosphere Science Chapel', 'Mirai Creat', 'Student Plaza'
         ];
 
-    return (
-        <>
-            <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
-                <NavBar checkpointId={"detail_page"} />
-
-                <Box sx={{ marginTop: 9, marginBottom: 8, marginLeft: 2, marginRight: 2 }}>
-                    {/* Building Name */}
-                    <Typography sx={{ fontSize: 24, fontWeight: 'bold', color: "#005e3c", marginBottom: 1 }}>
-                        {buildingName}
-                    </Typography>
-
-                    {/* Building Image */}
+        return (
+            <>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '100vh',
+                        backgroundColor: '#FFFFFF',
+                        margin: 0,
+                        padding: 0,
+                    }}
+                >
                     <Box
-                        component="img"
                         sx={{
-                            display: 'block',
-                            maxWidth: '100%',
-                            aspectRatio: '3 / 2',
-                            objectFit: 'cover',
-                            overflow: 'hidden',
-                            margin: '0 auto',
-                            height: 'auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: '100%',
+                            maxWidth: '800px', // 中央寄せしたときの横幅を固定
+                            padding: 3,
                         }}
-                        src={`https://hirodaimaps.ikeda042api.net/api/files/${building?.image_id}`}
-                        alt={buildingName || 'Building Image'}
-                    />
-
-                    {/* Building Description */}
-                    <Typography sx={{ fontSize: 15, marginTop: 1, textAlign: 'justify' }}>
-                        {buildingDescription}
-                    </Typography>
-
-                    {/* Departure Selection */}
-                    <Box sx={{ display: 'flex', marginTop: 4, alignItems: 'center' }}>
-                        <FormControl sx={{ minWidth: 160 }}>
-                            <InputLabel id="departure-point-label">{language === 'ja' ? '出発地点を選択' : 'Select Departure Point'}</InputLabel>
-                            <Select
-                                labelId="departure-point-label"
-                                id="departure-point"
-                                value={currentLocation}
-                                label={language === 'ja' ? '出発地' : 'Departure Location'}
-                                onChange={handleChange}
+                    >
+                        <NavBar checkpointId={"detail_page"} />
+        
+                        <Box sx={{ marginTop: 6, marginBottom: 4 }}>
+                            {/* Building Name */}
+                            <Typography
+                                sx={{
+                                    fontSize: 24,
+                                    fontWeight: 'bold',
+                                    color: "#005e3c",
+                                    marginBottom: 1,
+                                }}
                             >
-                                <MenuItem value=""><em>{language === 'ja' ? '選択してください' : 'Please select'}</em></MenuItem>
-                                {departureOptions.map((option, index) => (
-                                    <MenuItem value={index + 1} key={index}>{option}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <ArrowRightIcon sx={{ marginLeft: 0.5, marginRight: 0.5, color:'#BABABA' }} fontSize="large" />
-                        <Typography sx={{fontSize:15 }}>{buildingName}</Typography>
-                    </Box>
-
-                    <Box sx={{height:20}} />
-
-                    {/* Map or Path */}
-                    <Box sx={{height: 400, border:1 }}>
-                        {currentLocation === '' ? (
-                            <Map
-                                lat={building?.latitude || ''}
-                                lon={building?.longitude || ''}
-                                title={buildingName || ''}
+                                {buildingName}
+                            </Typography>
+        
+                            {/* Building Image */}
+                            <Box
+                                component="img"
+                                sx={{
+                                    display: 'block',
+                                    maxWidth: '100%',
+                                    aspectRatio: '3 / 2',
+                                    objectFit: 'cover',
+                                    overflow: 'hidden',
+                                    margin: '0 auto',
+                                    height: 'auto',
+                                }}
+                                src={`https://hirodaimaps.ikeda042api.net/api/files/${building?.image_id}`}
+                                alt={buildingName || 'Building Image'}
                             />
-                        ) : (
-                            <Path
-                                defaultStartBuildingId={currentLocation}
-                                defaultEndBuildingId={buildingId}
-                            />
-                        )}
+        
+                            {/* Building Description */}
+                            <Typography
+                                sx={{
+                                    fontSize: 15,
+                                    marginTop: 1,
+                                    textAlign: 'justify',
+                                    marginX: 'auto',
+                                }}
+                            >
+                                {buildingDescription}
+                            </Typography>
+        
+                            {/* Departure Selection */}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    marginTop: 4,
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <FormControl sx={{ minWidth: 160 }}>
+                                    <Select
+                                        id="departure-point"
+                                        value={currentLocation}
+                                        onChange={handleChange}
+                                        displayEmpty
+                                        renderValue={(selected) => {
+                                            if (selected === "") {
+                                                return (
+                                                    <span style={{ color: '#aaa' }}>
+                                                        {language === 'ja' ? '出発地点を選択' : 'Select Departure Point'}
+                                                    </span>
+                                                );
+                                            }
+                                            return departureOptions[parseInt(selected, 10) - 1];
+                                        }}
+                                        sx={{
+                                            '& .MuiSelect-select': {
+                                                padding: '14px 14px',
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value="">
+                                            -
+                                        </MenuItem>
+                                        {departureOptions.map((option, index) => (
+                                            <MenuItem value={index + 1} key={index}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+        
+                                <ArrowRightIcon
+                                    sx={{ marginLeft: 0.5, marginRight: 0.5, color: '#BABABA' }}
+                                    fontSize="large"
+                                />
+                                <Typography sx={{ fontSize: 15 }}>{buildingName}</Typography>
+                            </Box>
+        
+                            <Box sx={{ height: 20 }} />
+        
+                            {/* Map or Path */}
+                            <Box
+                                sx={{
+                                    height: 400,
+                                    border: 1,
+                                    marginX: 'auto', // 横方向の中央寄せ
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {currentLocation === '' ? (
+                                    <Map
+                                        lat={building?.latitude || ''}
+                                        lon={building?.longitude || ''}
+                                        title={buildingName || ''}
+                                    />
+                                ) : (
+                                    <Path
+                                        defaultStartBuildingId={currentLocation}
+                                        defaultEndBuildingId={buildingId}
+                                    />
+                                )}
+                            </Box>
+                        </Box>
                     </Box>
                 </Box>
-            </Box>
-        </>
-    );
+            </>
+        );
+        
 };
 
 export default BuildingDetail;

@@ -36,9 +36,11 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
                 position: 'fixed',
                 bottom: 10,
                 borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+                display: 'flex',
+                justifyContent: 'space-around', // 子要素を均等に配置
             }}
         >
-            <Link to={`/`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
+            <Link to={`/`} style={{ flexGrow: 1, textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
                 <CustomBottomNavigationAction
                     sx={{
                         color: checkpointId === '建物リスト' ? '#005E3C' : '#888888',
@@ -48,7 +50,7 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
                     showLabel={true}
                 />
             </Link>
-            <Link to="/dininghours" style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
+            <Link to="/dininghours" style={{ flexGrow: 1, textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
                 <CustomBottomNavigationAction
                     sx={{
                         color: checkpointId === '飲食店・売店' ? '#005E3C' : '#888888',
@@ -58,7 +60,7 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
                     showLabel={true}
                 />
             </Link>
-            <Link to={`/bustimetable`} style={{ display: 'flex', flexGrow: 1, textDecoration: 'none' }}>
+            <Link to={`/bustimetable`} style={{ flexGrow: 1, textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
                 <CustomBottomNavigationAction
                     sx={{
                         color: checkpointId === 'バス時刻表' ? '#005E3C' : '#888888',

@@ -113,7 +113,7 @@ export const BusTimetableComponent = () => {
             <Box sx={{ marginTop: 9, marginBottom: 8, marginLeft: 2, marginRight: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <FormControl sx={{ minWidth: 200 }}>
-                        <InputLabel id="departure-point-label">{language === 'en' ? 'Select Departure Point' : '出発地点を選択'}</InputLabel>
+
                         <Select
                             size='medium'
                             labelId="bus-stop-select-label"
