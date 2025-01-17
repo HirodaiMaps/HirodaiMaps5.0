@@ -12,8 +12,9 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 489px;
-            height: 656px;
+            width: 100%;
+            height: 800px;
+            margin: -10px -5px -5px;
         }
         </style>
         <title></title>
@@ -59,12 +60,12 @@
         const title_query_2 = urlParams.get('title2') ?? title2;
         
         
-        var zoomLevel = 18; // 初期のズームレベルを指定
+        var zoomLevel = 17.4; // 初期のズームレベルを指定
         //------------------------------------------------------------------------>
         var map = L.map('map', {
                 zoomControl: false,
-                maxZoom: 28,
-                minZoom: 1
+                maxZoom: 20,
+                minZoom: 15.5
             }).setView([lat_query_1, lon_query_1], zoomLevel);
 
     // クエリパラメータの位置にマーカーを表示

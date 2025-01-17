@@ -36,6 +36,7 @@ const BuildingDetail = () => {
     const params = useParams<Record<string, string | undefined>>();
     const buildingId = params.buildingId ?? 'ud';
     const [building, setBuilding] = useState<BuildingResponse | null>(null);
+    const [buildings, setBuildings] = useState<BuildingResponse[]>([]);
     const { language } = useContext(LanguageContext);
     const [currentLocation, setCurrentLocation] = useState('');
 
@@ -56,29 +57,26 @@ const BuildingDetail = () => {
         }
     }, [buildingId]);
 
+    useEffect(() => {
+        // ビルディングデータをフェッチ
+        fetch('https://hirodaimaps.ikeda042api.net/api/buildings/')
+            .then(response => response.json())
+            .then((data: BuildingResponse[]) => {
+                setBuildings(data);
+            });
+    }, []);
+
     // Building's name and description based on selected language
     const buildingName = language === 'ja' ? building?.name : building?.name_en;
     const buildingDescription = language === 'ja' ? building?.description : building?.description_en;
+    const departureOptionsListJa: string[] = buildings.map((building) => building.name);
+    const departureOptionsListEn: string[] = buildings.map((building) => building.name_en);
+
 
     // List of departure locations for both languages
     const departureOptions = language === 'ja'
-        ? [
-            'ひろぎんATM', 'ゆうちょATM', '大学会館', '東福利会館', '北第1福利会館',
-            '北第2福利会館', '北第3福利会館', '学士会館', '西2福利会館', '三河屋珈琲',
-            '広大中央口', '広大北口', '広大二神口', '二神山', '広大西口',
-            '大学会館前', 'かがら口', '広大東口', '山中池', '大学院国際協力研究科（IDEC）礼拝所',
-            '大学院社会科学研究科・経済学部 礼拝所', '大学院教育研究科・教育学部 礼拝所',
-            '大学院生物圏科学研究科 礼拝所', 'ミライクリエ', '学生プラザ'
-        ]
-        : [
-            'Hirogin ATM', 'Japan Post Bank ATM', 'University Hall', 'East Welfare Hall', 'North Welfare Hall #1',
-            'North Welfare Hall #2', 'North Welfare Hall #3', 'Faculty Club', 'West Welfare Center #2', 'Mikawa Coffee',
-            'Hiroshima University Central Entrance', 'Hiroshima University North Entrance', 'Hiroshima University Nikami Entrance',
-            'Nikami Mountain', 'Hiroshima University West Entrance', 'University Hall Front', 'Kagara Entrance',
-            'Hiroshima University East Entrance', 'Yamanaka Pond', 'Graduate School of International Cooperation Studies Chapel',
-            'Graduate School of Social Sciences & Economics Chapel', 'Graduate School of Education & Faculty of Education Chapel',
-            'Graduate School of Biosphere Science Chapel', 'Mirai Creat', 'Student Plaza'
-        ];
+        ? departureOptionsListJa
+        : departureOptionsListEn;
 
         return (
             <>
@@ -98,7 +96,7 @@ const BuildingDetail = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             width: '100%',
-                            maxWidth: '800px', // 中央寄せしたときの横幅を固定
+                            maxWidth: '560px', // 中央寄せしたときの横幅を固定
                             padding: 3,
                         }}
                     >
@@ -198,7 +196,7 @@ const BuildingDetail = () => {
                             {/* Map or Path */}
                             <Box
                                 sx={{
-                                    height: 400,
+                                    height: 600,
                                     border: 1,
                                     marginX: 'auto', // 横方向の中央寄せ
                                     display: 'flex',
