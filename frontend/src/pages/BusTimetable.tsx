@@ -127,7 +127,7 @@ export const BusTimetableComponent = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <ArrowRightIcon sx={{ marginLeft: 0.5, marginRight: 0.5, color:'#BABABA' }} fontSize="large" />
+                    <ArrowRightIcon sx={{ marginLeft: 0.5, marginRight: 0.5, color: '#BABABA' }} fontSize="large" />
                     <Typography sx={{ fontSize: 15 }}>{language === 'en' ? 'Saijo Station Bus Stop' : '西条駅バス停'}</Typography>
                 </Box>
                 <div style={{ height: 8 }} />
@@ -159,8 +159,25 @@ export const BusTimetableComponent = () => {
 
                                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'flex-end', textAlign: 'right' }}>
                                         <Typography sx={{ fontSize: 15 }}>
-                                            {language === 'en' ? `${departDict[language]} ${minutesToDeparture} minutes` : `${departDict[language]} ${minutesToDeparture} 分で出発`}
+                                            {language === 'en' ? (
+                                                <>
+                                                    {departDict[language]}{' '}
+                                                    <span style={{ fontWeight: 'bold', fontSize: 20 }}>
+                                                        {minutesToDeparture}
+                                                    </span>{' '}
+                                                    minutes
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {departDict[language]}{' '}
+                                                    <span style={{ fontWeight: 'bold', fontSize: 20 }}>
+                                                        {minutesToDeparture}
+                                                    </span>{' '}
+                                                    分で出発
+                                                </>
+                                            )}
                                         </Typography>
+
                                     </Box>
                                 </Box>
                             );
