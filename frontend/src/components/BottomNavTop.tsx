@@ -43,10 +43,10 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
             <Link to={`/`} style={{ flexGrow: 1, textDecoration: 'none', display: 'flex', justifyContent: 'center' }}>
                 <CustomBottomNavigationAction
                     sx={{
-                        color: checkpointId === '建物リスト' ? '#005E3C' : '#888888',
+                        color: checkpointId === '施設リスト' ? '#005E3C' : '#888888',
                     }}
-                    label={language === 'en' ? 'Building List' : '建物リスト'}
-                    icon={<ApartmentIcon sx={{ color: checkpointId === '建物リスト' ? '#005E3C' : '#888888' }} />}
+                    label={language === 'en' ? 'Facility List' : '施設一覧'}
+                    icon={<ApartmentIcon sx={{ color: checkpointId === '施設リスト' ? '#005E3C' : '#888888' }} />}
                     showLabel={true}
                 />
             </Link>
@@ -55,7 +55,7 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
                     sx={{
                         color: checkpointId === '飲食店・売店' ? '#005E3C' : '#888888',
                     }}
-                    label={language === 'en' ? 'Dining Hours' : '飲食店・売店'}
+                    label={language === 'en' ? 'Cafe. & Shop' : '飲食店・売店'}
                     icon={<RestaurantIcon sx={{ color: checkpointId === '飲食店・売店' ? '#005E3C' : '#888888' }} />}
                     showLabel={true}
                 />
@@ -65,7 +65,7 @@ const BottomNavBarTop = ({ checkpointId }: BottomNavBarTopProps) => {
                     sx={{
                         color: checkpointId === 'バス時刻表' ? '#005E3C' : '#888888',
                     }}
-                    label={language === 'en' ? 'Timetable' : 'バス時刻表'}
+                    label={language === 'en' ? 'Bus Timetable' : 'バス時刻表'}
                     icon={<DepartureBoardIcon sx={{ color: checkpointId === 'バス時刻表' ? '#005E3C' : '#888888' }} />}
                     showLabel={true}
                 />

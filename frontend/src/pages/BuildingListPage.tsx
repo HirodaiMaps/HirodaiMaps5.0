@@ -122,7 +122,7 @@ export const BuildingListPage = () => {
                     </Box>
                 </Box>
 
-                <BottomNavBar checkpointId={"建物リスト"} />
+                <BottomNavBar checkpointId={"施設リスト"} />
             </Box>
         </>
     );
