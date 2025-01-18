@@ -92,20 +92,35 @@ export const BusTimetableComponent = () => {
     useEffect(() => {
         // Fetch bus timetable data
         fetch(`https://hirodaimaps.ikeda042api.net/api/bus_timetables/${selectedBusStop}`)
-            .then(response => response.json())
+            .then((response) => response.json())
             .then((data: BusTimetable[]) => {
-                // 現在の時刻を取得
                 const currentDate = new Date();
-                const filteredData = data.filter(bus => {
+                const filteredData = data.filter((bus) => {
                     const busTime = new Date(`${currentDate.toISOString().split('T')[0]}T${bus.dpt_time}`);
                     return busTime > currentDate;
                 });
                 setBusTimetable(filteredData);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error fetching bus timetable:', error);
             });
     }, [selectedBusStop]);
+    
+    // 1分ごとに状態を更新
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setBusTimetable((prevBusTimetable) => {
+                const currentDate = new Date();
+                return prevBusTimetable.filter((bus) => {
+                    const busTime = new Date(`${currentDate.toISOString().split('T')[0]}T${bus.dpt_time}`);
+                    return busTime > currentDate;
+                });
+            });
+        }, 60000); // 1分ごとに実行
+    
+        return () => clearInterval(intervalId); // クリーンアップ
+    }, []);
+    
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
