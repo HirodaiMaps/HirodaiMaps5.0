@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavBar } from "./Navbar";
+import { NavBar } from "./Header";
 import { Box } from "@mui/system";
-import BottomNavBarBuildingListDetail from "./BottomNavBuildingListDetail";
 import { useParams } from "react-router-dom";
 import { Stack } from "@mui/material";
 import { useContext } from 'react';
@@ -26,10 +25,15 @@ type BuildingResponse = {
     updated_at: string;
 };
 
-const Path = () => {
+interface PathProps {
+    defaultStartBuildingId?: string;
+    defaultEndBuildingId?: string;
+}
+
+const Path: React.FC<PathProps> = ({ defaultStartBuildingId, defaultEndBuildingId }) => {
     const { pathId } = useParams();
-    const startBuildingId = pathId?.split("_")[1];
-    const endBuildingId = pathId?.split("_")[0];
+    const startBuildingId = pathId?.split("_")[1] || defaultStartBuildingId;
+    const endBuildingId = pathId?.split("_")[0] || defaultEndBuildingId;
     const [startBuilding, setStartBuilding] = useState<BuildingResponse | null>(null);
     const [endBuilding, setEndBuilding] = useState<BuildingResponse | null>(null);
     const height = window.innerHeight - 140;
@@ -76,20 +80,12 @@ const Path = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Stack spacing={9} alignItems="center" sx={{ width: '100%', maxWidth: '90%', margin: 'auto', mt: "10px" }}>
-                    <NavBar />
-                    <Box sx={{ width: '100%', maxWidth: '98%', }}>
-                        <iframe
-                            id="mapIframe"
-                            src={`/path/path_test.html?pathId=${pathId}&lat1=${startBuilding.latitude}&lon1=${startBuilding.longitude}&title1=${language === "en" ? startBuilding.name_en : startBuilding.name}&lat2=${endBuilding.latitude}&lon2=${endBuilding.longitude}&title2=${language === 'en' ? endBuilding.name_en : endBuilding.name}`}
-                            title="Map"
-                            style={{ width: width, height: height, padding: '0', margin: '0' }}
-                        ></iframe>
-                    </Box>
-                    <BottomNavBarBuildingListDetail checkpointId={""} startKey={startBuilding.name} endKey={endBuilding.name} />
-                </Stack>
-            </Box>
+            <iframe
+                id="mapIframe"
+                src={`/path/path_test.html?pathId=${defaultEndBuildingId + "_" + defaultStartBuildingId}&lat1=${startBuilding.latitude}&lon1=${startBuilding.longitude}&title1=${language === "en" ? startBuilding.name_en : startBuilding.name}&lat2=${endBuilding.latitude}&lon2=${endBuilding.longitude}&title2=${language === 'en' ? endBuilding.name_en : endBuilding.name}`}
+                title="Map"
+                style={{ width: '100%', height: '100%', padding: '0', margin: '0', border: 0 }}
+            ></iframe>
         </>
     );
 }

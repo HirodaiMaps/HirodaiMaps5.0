@@ -1,14 +1,13 @@
 import { Box } from '@mui/system';
-import { BuildingCard } from './BuildingCard';
-import { NavBar } from './Navbar';
-import BottomNavBar from './BottomNavTop';
+import { BuildingCard } from '../components/BuildingCard';
+import { NavBar } from '../components/Header';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 import { useState, useEffect, useRef } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Divider, Grid } from '@mui/material';
 import { useContext } from 'react';
-import { LanguageContext } from './LanguageProvider';
-
+import { LanguageContext } from '../components/LanguageProvider';
+import BottomNavBar from '../components/BottomNavTop';
 
 type BuildingResponse = {
     id: number;
@@ -29,14 +28,12 @@ type BuildingResponse = {
     updated_at: string;
 };
 
-export const TopPage = () => {
+export const BuildingListPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [buildings, setBuildings] = useState<BuildingResponse[]>([]);
     const [filteredBuildings, setFilteredBuildings] = useState<BuildingResponse[]>([]);
     const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const { language } = useContext(LanguageContext);
-
-    console.log(buildings);
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
@@ -90,7 +87,7 @@ export const TopPage = () => {
                 building.name_en.toLowerCase().includes(searchQuery.toLowerCase())
             );
         } else {
-            filtered = buildings;
+            filtered = buildings;  // 検索クエリが空の場合に全てのビルディングを表示
         }
         setFilteredBuildings(filtered);
     }, [searchQuery, buildings]);
@@ -99,27 +96,33 @@ export const TopPage = () => {
         <>
             <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FFFFFF', margin: 0, padding: 0 }}>
                 <NavBar checkpointId={""} />
-                <Box sx={{ marginTop: '64px', marginBottom: '64px' }}>
-                    {language === "ja" && <Box sx={{ border: '1px solid', padding: '10px', marginBottom: '20px', margin: "7px", color: "#696969" }}>
-                        <Typography variant="body1">検索バーで<b>現在地の建物名</b>を入力して、建物を選択してください。<br></br>
-                            (例：文学部、学生プラザ、工学部支援室 など)</Typography>
-                    </Box>}
 
-                    {language === "en" && <Box sx={{ border: '1px solid', padding: '10px', marginBottom: '20px', margin: "7px", color: "#696969" }}>
-                        <Typography variant="body1">Please enter the name of <b>the building at your current location</b> in the search bar and select the building.<br></br>
-                            (e.g. Faculty of Letters, Student Plaza, Engineering Support Room, etc.)</Typography>
-                    </Box>}
+                <Box sx={{ marginTop: 8.5, marginBottom: 8, marginLeft: 2, marginRight: 2 }}>
                     <SearchBar onSearch={handleSearch} />
-                    {filteredBuildings.map((building, i) => (
-                        // <Link to={`/building/${building.id}`} style={{ textDecoration: 'none' }} key={i}>
-                        <Link to={`/${building.id}`} style={{ textDecoration: 'none' }} key={i}>
-                            <BuildingCard imageUrl={`https://hirodaimaps.ikeda042api.net/api/files/${building.image_id}`} title={
-                                language === "ja" ? building.name : building.name_en
-                            } />
-                        </Link>
-                    ))}
+                    <div style={{ height: 14 }} />
+                    <Box
+                        sx={{
+                            overflowY: 'auto',
+                            maxHeight: 'calc(100vh - 200px)',
+                            marginTop: -0.6,
+                            marginLeft: 0.3,
+                            marginRight: 0.3,
+                        }}
+                    >
+                        <Grid>
+                            {filteredBuildings.map((building, i) => (
+                                <Link to={`/building/${building.id}/list`} style={{ textDecoration: 'none', color: 'black', }} key={i}>
+                                    <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
+                                    <BuildingCard imageUrl={`https://hirodaimaps.ikeda042api.net/api/files/${building.image_id}`} title={
+                                        language === "ja" ? building.name : building.name_en
+                                    } />
+                                </Link>
+                            ))}
+                        </Grid>
+                    </Box>
                 </Box>
-                <BottomNavBar checkpointId={""} />
+
+                <BottomNavBar checkpointId={"施設リスト"} />
             </Box>
         </>
     );

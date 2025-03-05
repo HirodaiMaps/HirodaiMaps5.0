@@ -1,7 +1,6 @@
 import { Box } from '@mui/system';
 import { BuildingCard } from './BuildingCard';
-import { NavBar } from './Navbar';
-import BottomNavDestinationSelectingPage from './BottomNavDestinationSelectingPage';
+import { NavBar } from './Header';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { useState, useEffect, useRef } from 'react';
@@ -136,7 +135,6 @@ export const DestinationSelectingPage = () => {
                         </Link>
                     ))}
                 </Box>
-                <BottomNavDestinationSelectingPage checkpointId='' />
             </Box>
         </>
     );

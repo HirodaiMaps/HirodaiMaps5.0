@@ -12,7 +12,7 @@ const Map: React.FC<MapProps> = ({ lat, lon, title }) => {
                 id="mapIframe"
                 src={"/map/map.html" + `?lat=${lat}&lon=${lon}&title=${title}`}
                 title="Map"
-                style={{ width: '100%', height: '100%', padding: '0', margin: '0' }}
+                style={{ width: '100%', height: '100%', padding: '0', margin: '0', border: 0 }}
             ></iframe>
         </>
     );
