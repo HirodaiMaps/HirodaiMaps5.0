@@ -15,13 +15,14 @@ type BusTimetable = {
 };
 
 const busStops = [
-    "chuo_to_saijo",
-    "kitaguchi_to_saijo",
-    "hutakami_to_saijo",
-    "nishiguchi_to_saijo",
+    "hirodaichuo_to_saijo",
+    "hirodaikitaguchi_to_saijo",
+    "hirodaifutagami_to_saijo",
+    "futagamiyama_to_saijo",
+    "hirodainishiguchi_to_saijo",
     "kaikanmae_to_saijo",
-    "kagaraguchi_to_saijo",
-    "higashiguchi_to_saijo",
+    "gagaraguchi_to_saijo",
+    "hirodaihigashiguchi_to_saijo",
     "yamanakaike_to_saijo",
 ] as const;
 
@@ -29,23 +30,25 @@ type BusStop = typeof busStops[number];
 
 const busStopsDict: Record<'ja' | 'en', Record<BusStop, string>> = {
     ja: {
-        "chuo_to_saijo": "広大中央口",
-        "kitaguchi_to_saijo": "広大北口",
-        "hutakami_to_saijo": "広大二神口",
-        "nishiguchi_to_saijo": "広大西口",
+        "hirodaichuo_to_saijo": "広大中央口",
+        "hirodaikitaguchi_to_saijo": "広大北口",
+        "hirodaifutagami_to_saijo": "広大二神口",
+        "futagamiyama_to_saijo": "二神山",
+        "hirodainishiguchi_to_saijo": "広大西口",
         "kaikanmae_to_saijo": "大学会館前",
-        "kagaraguchi_to_saijo": "広大ががら口",
-        "higashiguchi_to_saijo": "広大東口",
+        "gagaraguchi_to_saijo": "広大ががら口",
+        "hirodaihigashiguchi_to_saijo": "広大東口",
         "yamanakaike_to_saijo": "山中池",
     },
     en: {
-        "chuo_to_saijo": "Chuo",
-        "kitaguchi_to_saijo": "Kitaguchi",
-        "hutakami_to_saijo": "Futagamiyama",
-        "nishiguchi_to_saijo": "Nishiguchi",
+        "hirodaichuo_to_saijo": "Hirodai Chuoguchi",
+        "hirodaikitaguchi_to_saijo": "Hirodai Kitaguchi",
+        "hirodaifutagami_to_saijo": "Hirodai Futagamiguchi",
+        "futagamiyama_to_saijo": "Futagamiyama",
+        "hirodainishiguchi_to_saijo": "Hirodai Nishiguchi",
         "kaikanmae_to_saijo": "Kaikanmae",
-        "kagaraguchi_to_saijo": "Gagaraguchi",
-        "higashiguchi_to_saijo": "Higashiguchi",
+        "gagaraguchi_to_saijo": "Gagaraguchi",
+        "hirodaihigashiguchi_to_saijo": "Hirodai Higashiguchi",
         "yamanakaike_to_saijo": "Yamanakaike",
     }
 };
