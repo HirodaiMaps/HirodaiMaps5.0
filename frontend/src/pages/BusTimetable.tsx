@@ -149,7 +149,7 @@ export const BusTimetableComponent = () => {
                 {/* 運賃の表示 */}
                 <Box sx={{ marginBottom: 1 }}>
                     <Typography sx={{ fontSize: 13 }}>
-                        {fareDict[language]}<span style={{ fontWeight: 'bold', fontSize: 20 }}>290</span> {language === 'en' ? 'yen' : '円'}
+                        {fareDict[language]}<span style={{ fontWeight: 'bold', fontSize: 20 }}>330</span> {language === 'en' ? 'yen' : '円'}
                     </Typography>
                 </Box>
                 <Divider />
