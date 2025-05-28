@@ -46,7 +46,7 @@ const BuildingDetail = () => {
 
     useEffect(() => {
         if (buildingId) {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/buildings/${buildingId}`)
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/${buildingId}`)
                 .then(response => response.json())
                 .then((data: BuildingResponse) => {
                     setBuilding(data);
@@ -59,7 +59,7 @@ const BuildingDetail = () => {
 
     useEffect(() => {
         // ビルディングデータをフェッチ
-        fetch('https://hirodaimaps.ikeda042api.net/api/buildings/')
+        fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/')
             .then(response => response.json())
             .then((data: BuildingResponse[]) => {
                 setBuildings(data);
@@ -127,7 +127,7 @@ const BuildingDetail = () => {
                                     margin: '0 auto',
                                     height: 'auto',
                                 }}
-                                src={`https://hirodaimaps.ikeda042api.net/api/files/${building?.image_id}`}
+                                src={`https://api.hirodaimaps.hiroshima-u.ac.jp/api/files/${building?.image_id}`}
                                 alt={buildingName || 'Building Image'}
                             />
         

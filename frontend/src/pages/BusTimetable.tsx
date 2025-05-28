@@ -72,7 +72,7 @@ export const BusTimetableComponent = () => {
         setSelectedBusStop(selectedStop);
 
         // Send the selected bus stop to the tracking API immediately
-        fetch(`https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=bus_time_table&value=${selectedStop}`, {
+        fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=bus_time_table&value=${selectedStop}`, {
             method: 'POST'
         })
             .then(response => {
@@ -91,7 +91,7 @@ export const BusTimetableComponent = () => {
 
     useEffect(() => {
         // Fetch bus timetable data
-        fetch(`https://hirodaimaps.ikeda042api.net/api/bus_timetables/${selectedBusStop}`)
+        fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/bus_timetables/${selectedBusStop}`)
             .then((response) => response.json())
             .then((data: BusTimetable[]) => {
                 const currentDate = new Date();

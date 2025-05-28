@@ -57,7 +57,7 @@ export const DiningHallHours = () => {
         }
 
         searchTimeoutRef.current = setTimeout(() => {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=search_keywords&value=${query}`, {
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=search_keywords&value=${query}`, {
                 method: 'POST'
             })
                 .then(response => {
@@ -88,7 +88,7 @@ export const DiningHallHours = () => {
     };
 
     useEffect(() => {
-        fetch('https://hirodaimaps.ikeda042api.net/api/dininghalls/info')
+        fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/dininghalls/info')
             .then(response => response.json())
             .then((data: DiningHallInfo[]) => {
                 setDiningHalls(data);
@@ -119,7 +119,7 @@ export const DiningHallHours = () => {
     }, [searchQuery, diningHalls, language]);
 
     useEffect(() => {
-        fetch('https://hirodaimaps.ikeda042api.net/api/dininghalls/info')
+        fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/dininghalls/info')
             .then(response => response.json())
             .then((data: DiningHallInfo[]) => {
                 // 営業時間のフォーマットを修正

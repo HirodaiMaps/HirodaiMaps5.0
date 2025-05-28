@@ -18,9 +18,9 @@ const BuildingCallTrackerPage: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const buildingResponse = await axios.get('https://hirodaimaps.ikeda042api.net/api/building_call_tracker');
-            const busStopResponse = await axios.get('https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=bus_time_table');
-            const searchQueryResponse = await axios.get('https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=search_keywords');
+            const buildingResponse = await axios.get('https://api.hirodaimaps.hiroshima-u.ac.jp/api/building_call_tracker');
+            const busStopResponse = await axios.get('https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=bus_time_table');
+            const searchQueryResponse = await axios.get('https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=search_keywords');
 
             processCumulativeData(buildingResponse.data);
             processBusStopData(busStopResponse.data);

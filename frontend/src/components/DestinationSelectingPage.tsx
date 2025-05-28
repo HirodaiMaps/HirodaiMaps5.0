@@ -41,7 +41,7 @@ export const DestinationSelectingPage = () => {
 
     useEffect(() => {
         if (currbuildingId) {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/buildings/${currbuildingId}`)
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/${currbuildingId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -70,7 +70,7 @@ export const DestinationSelectingPage = () => {
 
         // 300ms後に検索ワードを送信
         searchTimeoutRef.current = setTimeout(() => {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=search_keywords&value=${query}`, {
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=search_keywords&value=${query}`, {
                 method: 'POST'
             })
                 .then(response => {
@@ -90,7 +90,7 @@ export const DestinationSelectingPage = () => {
 
     useEffect(() => {
         // ビルディングデータをフェッチ
-        fetch('https://hirodaimaps.ikeda042api.net/api/buildings/')
+        fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/')
             .then(response => response.json())
             .then((data: BuildingResponse[]) => {
                 setBuildings(data);
@@ -129,7 +129,7 @@ export const DestinationSelectingPage = () => {
                     <SearchBar onSearch={handleSearch} />
                     {filteredBuildings.map((building, i) => (
                         <Link to={`/building/${building.id}/${currbuildingId}`} style={{ textDecoration: 'none' }} key={i}>
-                            <BuildingCard imageUrl={`https://hirodaimaps.ikeda042api.net/api/files/${building.image_id}`} title={
+                            <BuildingCard imageUrl={`https://api.hirodaimaps.hiroshima-u.ac.jp/api/files/${building.image_id}`} title={
                                 language === "ja" ? building.name : building.name_en
                             } />
                         </Link>

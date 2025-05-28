@@ -42,7 +42,7 @@ const Path: React.FC<PathProps> = ({ defaultStartBuildingId, defaultEndBuildingI
 
     useEffect(() => {
         if (startBuildingId) {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/buildings/${startBuildingId}`)
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/${startBuildingId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ const Path: React.FC<PathProps> = ({ defaultStartBuildingId, defaultEndBuildingI
         }
 
         if (endBuildingId) {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/buildings/${endBuildingId}`)
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/${endBuildingId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');

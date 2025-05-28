@@ -45,7 +45,7 @@ export const BuildingListPage = () => {
 
         // 300ms後に検索ワードを送信
         searchTimeoutRef.current = setTimeout(() => {
-            fetch(`https://hirodaimaps.ikeda042api.net/api/user_actions/?action_name=search_keywords&value=${query}`, {
+            fetch(`https://api.hirodaimaps.hiroshima-u.ac.jp/api/user_actions/?action_name=search_keywords&value=${query}`, {
                 method: 'POST'
             })
                 .then(response => {
@@ -65,7 +65,7 @@ export const BuildingListPage = () => {
 
     useEffect(() => {
         // ビルディングデータをフェッチ
-        fetch('https://hirodaimaps.ikeda042api.net/api/buildings/')
+        fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/buildings/')
             .then(response => response.json())
             .then((data: BuildingResponse[]) => {
                 setBuildings(data);
@@ -113,7 +113,7 @@ export const BuildingListPage = () => {
                             {filteredBuildings.map((building, i) => (
                                 <Link to={`/building/${building.id}/list`} style={{ textDecoration: 'none', color: 'black', }} key={i}>
                                     <Divider sx={{ marginTop: 0.5, marginBottom: 0.5 }} />
-                                    <BuildingCard imageUrl={`https://hirodaimaps.ikeda042api.net/api/files/${building.image_id}`} title={
+                                    <BuildingCard imageUrl={`https://api.hirodaimaps.hiroshima-u.ac.jp/api/files/${building.image_id}`} title={
                                         language === "ja" ? building.name : building.name_en
                                     } />
                                 </Link>

@@ -544,7 +544,7 @@ const pathId = urlParams.get('pathId');
 console.log("pathId");
 console.log(pathId);
 
-fetch('https://hirodaimaps.ikeda042api.net/api/files/routes_geojson/' + pathId)
+fetch('https://api.hirodaimaps.hiroshima-u.ac.jp/api/files/routes_geojson/' + pathId)
     .then(response => response.json())
     .then(data => {
         geoJsonData = data;
